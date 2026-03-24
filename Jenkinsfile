@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('Sunithriyansh')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-id')
         DOCKER_PSW = "Sunitha@565"
         DOCKER_IMAGE = "Sunithriyansh/rose-web:latest"
     }
