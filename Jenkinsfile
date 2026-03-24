@@ -1,25 +1,48 @@
 pipeline {
     agent any
-    environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-id')
-        DOCKER_PSW = "Sunitha@565"
-        DOCKER_IMAGE = "Sunithriyansh/rose-web:latest"
+
+    tools {
+        maven 'mymave'
     }
+
+    environment {
+        DOCKER_USER = 'sunithriyansh'
+        DOCKER_PASS = 'Sunitha@565'
+        IMAGE_NAME  = 'rose'
+    }
+
     stages {
+
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/ramadevipanthagadi/task6.git'
+                git branch: 'master', url: 'https://github.com/ramadevipanthagadi/hotstar_project.git'
             }
         }
-        stage('Build Docker Image') {
+
+        stage('Build with Maven') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE .'
+                sh 'mvn clean package'
             }
         }
-        stage('Push Docker Image') {
+
+        stage('Docker Build') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push $DOCKER_IMAGE'
+                sh 'docker build -t rose .'
+            }
+        }
+
+        stage('Docker Run') {
+            steps {
+                sh 'docker rm -f cont1 || true'
+                sh 'docker run -d --name cont1 -p 8010:80 rose'
+            }
+        }
+
+        stage('Push to DockerHub') {
+            steps {
+                sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                sh 'docker tag imag1:latest $DOCKER_USER/$IMAGE_NAME:latest'
+                sh 'docker push $DOCKER_USER/$IMAGE_NAME:latest'
             }
         }
         stage('Deploy to Kubernetes') {
@@ -29,5 +52,5 @@ pipeline {
                 sh 'kubectl apply -f k8s/ingress.yml'
             }
         }
+
     }
-}
