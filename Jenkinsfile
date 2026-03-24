@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('Sunithriyansh')
-        DOCKER - PASSWD = Sunitha@565
+        DOCKER_PSW = "Sunitha@565"
         DOCKER_IMAGE = "Sunithriyansh/rose-web:latest"
     }
     stages {
