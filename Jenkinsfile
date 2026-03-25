@@ -7,6 +7,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/ramadevipanthagadi/task6.git'
@@ -36,8 +37,13 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f deployment.yml'
-                
+                sh '''
+                echo "Current directory:"
+                pwd
+                echo "Files in workspace:"
+                ls -R
+                kubectl apply -f k8s/
+                '''
             }
         }
     }
