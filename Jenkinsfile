@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/ramadevipanthagadi/rose.git'
+                git branch: 'main', url: 'https://github.com/ramadevipanthagadi/task6.git'
             }
         }
         stage('Build Docker Image') {
