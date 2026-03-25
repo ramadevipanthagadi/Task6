@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: rose-web
-        image: Sunithriyansh/roses:latest
+        image: sunithriyansh/roses:latest
         ports:
         - containerPort: 80
