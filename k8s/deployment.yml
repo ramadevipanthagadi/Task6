@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rose-deployment   # ✅ no spaces
+  name: rose-deployment
   labels:
     app: rose
 spec:
@@ -15,10 +15,10 @@ spec:
         app: rose
     spec:
       containers:
-      - name: rose-container
-        image: sunithriyansh/rose:latest
-        ports:
-        - containerPort: 8080
+        - name: rose-container
+          image: sunithriyansh/rose:latest
+          ports:
+            - containerPort: 8080
 
 ---
 apiVersion: v1
